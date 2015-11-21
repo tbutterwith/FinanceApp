@@ -1,5 +1,5 @@
 angular.module('app.controllers')
-.controller('AppCtrl', function($rootScope, $scope, $state, $ionicModal, $q, db) {
+.controller('AppCtrl', function($rootScope, $scope, $location, $ionicModal, $q, db) {
   $scope.$on('$ionicView.enter', function(e) {
     if (!$rootScope.accountsRendered)
        loadAccounts();
@@ -9,7 +9,15 @@ angular.module('app.controllers')
   var loadAccounts = function () {
     db.getAllAccounts().then(
       function (data) {
-        $scope.accounts = data;
+        var menu = $('#menu-account-list .list');
+        $.each(data, function(i, account) {
+          console.log(account);
+          var url = '#/accounts/' + account.id;
+          var item = '<ion-item menu-close href="'+ url +'" accountID="' + account.id + '" class="item item-complex">'
+           + '<a class="item-content" ng-href="'+ url +'" href="'+ url +'">' +  account.name + '</a>'
+           + '</ion-item>';
+          menu.append(item);
+        });
       },
       function (error) {
         console.log(error.message);

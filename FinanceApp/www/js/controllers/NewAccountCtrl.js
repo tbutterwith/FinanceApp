@@ -1,5 +1,5 @@
 angular.module('app.controllers')
-.controller('NewAccountCtrl', function($scope, $ionicModal, db) {
+.controller('NewAccountCtrl', function($rootScope, $scope, $state,$ionicHistory, $ionicModal, db) {
   $scope.db = db;
   $scope.account = new Account();
   
@@ -14,18 +14,27 @@ angular.module('app.controllers')
   $scope.insertAccount = function() {
     $scope.account.name = $('#account-name').val();
     $scope.account.id = parseInt($('#account-id').text());
+    $scope.account.type = $('#account-type').text();
     
     //console.log(account.type);
     db.insertAccount($scope.account)
     .then( function () {
-      db.getAllAccounts()
-        .then (function (data) {
-          console.log(data);
-        });
+      resetForm();
+      $rootScope.accountsRendered = false;
+      $ionicHistory.nextViewOptions({
+        disableBack: true
+      });
+      $state.transitionTo('app.browse', null, {reload:true});
     });
+    
+      
     
   };
   
+  resetForm = function () {
+    $('#account-name').val('');
+    $('#account-type').text('Current');
+  }
   $scope.selectAccountType = function(type) {
     $scope.account.type = type;
     $('#account-type').text(type);
