@@ -5,18 +5,17 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title></title>
 
-    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="lib/flexboxgrid.min.css" type="text/css">
 
-    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <!-- compiled css output -->
     <link href="css/ionic.app.css" rel="stylesheet">
-    -->
     <script src="lib/jquery-2.1.4.min.js"></script>
 
     <!-- models -->
     <script src="js/models/Account.js"></script>
     <!-- mappers -->
     <script src="js/mappers/AccountMapper.js"></script>
+    <script src="js/mappers/TransactionMapper.js"></script>
     
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
@@ -25,13 +24,14 @@
     <script src="lib/ngCordova/ng-cordova.min.js"></script>
     
 
-    <!-- your app's js -->
+    <!-- Services -->
     <script src="js/services/services.js"></script>
     <script src="js/services/dbHelper.js"></script>
-    
+    <!-- Controllers -->
     <script src="js/controllers/controllers.js"></script>
     <script src="js/controllers/MainController.js"></script>
     <script src="js/controllers/AccountCtrl.js"></script>
+    <script src="js/controllers/TransactionsCtrl.js"></script>
     
     
     <script src="js/app.js"></script>  

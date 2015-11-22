@@ -1,4 +1,4 @@
-<ion-view view-title="">
+<ion-view view-title="" id="account-settings">
   <ion-content>
       <div class="list">
         <div class="item item-input item-stacked-label">
@@ -7,7 +7,7 @@
         </div>
         <div class="item item-input item-stacked-label">
           <span class="input-label" >Account Type</span><br />
-          <div class="div-account-type" ng-click="onAccountTypeClick()"><span id="account-type" ng-bind="account.type">Current</span><i class="ion-ios-arrow-down pad-right"></i></div>
+          <div class="div-account-type" ng-click="onAccountTypeClick()"><span id="account-type" ng-bind="account.type">Current</span>&nbsp;&nbsp;<i class="ion-ios-arrow-down pad-right"></i></div>
         </div>
         <div class="item item-input item-stacked-label">
           <span class="input-label">ID</span>
@@ -23,13 +23,13 @@
         </button>
       </div>
       <script id="modal-account-type" type="text/ng-template">
-  <ion-modal-view>
-  <ul class="list">
-    <li class="item" ng-click="onSelectAccountType('Current')">Current</li>
-    <li class="item" ng-click="onSelectAccountType('Savings')">Savings</li>
-    <li class="item" ng-click="onSelectAccountType('Other')">Other</li>
-  </ul>
-  </ion-modal-view>
-</script>
+        <ion-modal-view>
+        <ul class="list">
+          <li class="item" ng-click="onSelectAccountType('Current')">Current</li>
+          <li class="item" ng-click="onSelectAccountType('Savings')">Savings</li>
+          <li class="item" ng-click="onSelectAccountType('Other')">Other</li>
+        </ul>
+        </ion-modal-view>
+      </script>
   </ion-content>
 </ion-view>

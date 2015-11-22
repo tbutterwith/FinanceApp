@@ -8,6 +8,8 @@
         <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
         </button>
       </ion-nav-buttons>
+      <ion-nav-buttons side="right" id="nav-button-right">
+      </ion-nav-buttons>
     </ion-nav-bar>
     <ion-nav-view name="menuContent"></ion-nav-view>
   </ion-side-menu-content>
@@ -21,7 +23,7 @@
         <ion-item menu-close href='#/app/startpage'>New Account</ion-item>
         <ion-item menu-close href='#' ng-click="dropTables()">Drop Tables</ion-item>
         <ion-item menu-close collection-repeat="account in accounts"
-          href="#/app/account/{{account.id}}">
+          href="#/app/transactions/{{account.id}}">
           {{account.name}}
         </ion-item>
       </ion-list>

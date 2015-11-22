@@ -19,9 +19,9 @@ class AccountMapper {
     if(row !== undefined){
       var account = new Account();
       
-      account.id = row.id;
-      account.name = row.name;
-      account.type = row.type;
+      account.id = row.ID;
+      account.name = row.Name;
+      account.type = row.Type;
       
       return account;
     }

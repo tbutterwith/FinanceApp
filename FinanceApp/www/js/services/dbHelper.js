@@ -36,19 +36,30 @@ angular.module('app.services')
 
   this.createTables = function() {
     DBA.query('CREATE TABLE IF NOT EXISTS tbAccounts (' +
-      'id INTEGER PRIMARY KEY AUTOINCREMENT' + 
-      ',name NVARCHAR(255)' +
-      ',type VARCHAR(255)' +
+      'PK_AccountID INTEGER PRIMARY KEY AUTOINCREMENT,' + 
+      'Name NVARCHAR(255),' +
+      'Type VARCHAR(255)' +
+      ');');
+    DBA.query('CREATE TABLE IF NOT EXISTS tbTransactions (' +
+      'PK_TransactionID INTEGER PRIMARY KEY AUTOINCREMENT,' +
+      'Value MONEY,' +
+      'Description NVARCHAR(255),' +
+      'FK_TypeID INTEGER,' +
+      'FK_AccountID INTEGER' +
       ');');
   };
   
   this.dropTables = function () {
     DBA.query('DROP TABLE IF EXISTS tbAccounts');
+    DBA.query('DROP TABLE IF EXISTS tbTransactions');
     this.createTables();
   };
   
+  /*
+   * Accounts
+   */
  this.getAllAccounts = function () {
-   return DBA.query('SELECT id, name, type FROM tbAccounts')
+   return DBA.query('SELECT PK_AccountID AS ID, Name, Type FROM tbAccounts')
       .then(function(result){
         return AccountMapper.MapRows(DBA.getResults(result));
       });
@@ -56,7 +67,7 @@ angular.module('app.services')
   
   this.getAccountById = function (id) {
     var parameters = [id];
-      return DBA.query('SELECT id, name, type FROM tbAccounts WHERE id = ?', parameters)
+      return DBA.query('SELECT PK_AccountID AS ID, Name, Type FROM tbAccounts WHERE PK_AccountID = ?', parameters)
         .then(function (result) {
           return AccountMapper.Map(DBA.getResults(result)[0]);
         });
@@ -64,17 +75,35 @@ angular.module('app.services')
   
   this.insertAccount = function (account) {
     var parameters = [account.name, account.type];
-    return DBA.query('INSERT INTO tbAccounts (`name`, `type`) VALUES (?, ?)', parameters);
+    return DBA.query('INSERT INTO tbAccounts (`Name`, `Type`) VALUES (?, ?)', parameters);
   };
  
   this.updateAccount = function (account) {
     var parameters = [account.name, account.type, account.id];
-    return DBA.query('UPDATE tbAccounts SET name=?, type=? WHERE id = ?', parameters);
+    return DBA.query('UPDATE tbAccounts SET Name=?, Type=? WHERE PK_AccountID = ?', parameters);
   };
   
   this.deleteAccount = function (account) {
     var parameters = [account.id];
-    return DBA.query('DELETE FROM tbAccounts WHERE id = ?', parameters);
+    return DBA.query('DELETE FROM tbAccounts WHERE PK_AccountID = ?', parameters);
+  };
+  
+  /*
+   * Transactions
+   */
+  this.insertTransaction = function (trans) {
+    var parameters = [trans.value, trans.AccountID];
+    return DBA.query('INSERT INTO tbTransactions (`Value`, `FK_AccountID`) VALUES (?,?)', parameters);
+  };
+  
+  this.getTransactionsForAccount = function (accountID) {
+    var parameters = [accountID];
+    return DBA.query('SELECT PK_TransactionID AS ID, Value, Description, FK_TypeID AS Type, FK_AccountID AS AccountID ' +
+      'FROM tbTransactions WHERE FK_AccountID = ?', parameters)
+      .then(function (result) {
+        return TransactionMapper.MapRows(DBA.getResults(result));
+      })
   }
+ 
  
 })

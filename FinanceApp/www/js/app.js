@@ -44,21 +44,6 @@ angular.module('FinanceApp', ['ionic', 'ngCordova', 'app.controllers', 'app.serv
     }
   })
 
-  .state('app.search', {
-    url: '/search',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/search.html',
-        controller: 'AppCont',
-        resolve: {
-          db: function(DBHelper){
-            return DBHelper;
-          }
-        }
-      }
-    }
-  })
-
   .state('app.browse', {
       url: '/browse',
       views: {
@@ -98,12 +83,12 @@ angular.module('FinanceApp', ['ionic', 'ngCordova', 'app.controllers', 'app.serv
       }
     })
 
-  .state('app.single', {
-    url: '/playlists/:playlistId',
+  .state('app.transactions', {
+    url: '/transactions/:id',
     views: {
       'menuContent': {
-        templateUrl: 'templates/playlist.html',
-        controller: 'PlaylistCtrl',
+        templateUrl: 'templates/transactions.html',
+        controller: 'TransactionsCtrl',
         resolve: {
           db: function(DBHelper){
             return DBHelper;
