@@ -19,6 +19,11 @@
     <ion-content>
       <ion-list id="menu-account-list">
         <ion-item menu-close href='#/app/startpage'>New Account</ion-item>
+        <ion-item menu-close href='#' ng-click="dropTables()">Drop Tables</ion-item>
+        <ion-item menu-close collection-repeat="account in accounts"
+          href="#/app/account/{{account.id}}">
+          {{account.name}}
+        </ion-item>
       </ion-list>
     </ion-content>
   </ion-side-menu>

@@ -3,11 +3,11 @@
       <div class="list">
         <div class="item item-input item-stacked-label">
           <span class="input-label">Account Name</span>
-          <input type="text" placeholder="Account" id="account-name">
+          <input type="text" placeholder="Account" id="account-name" ng-model="account.name">
         </div>
         <div class="item item-input item-stacked-label">
           <span class="input-label" >Account Type</span><br />
-          <div class="div-account-type" ng-click="accountSelect()"><span id="account-type">Current</span><i class="ion-ios-arrow-down pad-right"></i></div>
+          <div class="div-account-type" ng-click="onAccountTypeClick()"><span id="account-type" ng-bind="account.type">Current</span><i class="ion-ios-arrow-down pad-right"></i></div>
         </div>
         <div class="item item-input item-stacked-label">
           <span class="input-label">ID</span>
@@ -15,16 +15,19 @@
         </div>
       </div>
       <div class="padding">
-        <button class="button button-block button-positive" ng-click="insertAccount()">
+        <button class="button button-block button-positive" ng-click="onSubmitClick()">
           Save Account
+        </button>
+        <button class="button button-block button-assertive" ng-click="onDeleteClick()" ng-if="showDelete">
+          Delete Account
         </button>
       </div>
       <script id="modal-account-type" type="text/ng-template">
   <ion-modal-view>
   <ul class="list">
-    <li class="item" ng-click="selectAccountType('Current')">Current</li>
-    <li class="item" ng-click="selectAccountType('Savings')">Savings</li>
-    <li class="item" ng-click="selectAccountType('Other')">Other</li>
+    <li class="item" ng-click="onSelectAccountType('Current')">Current</li>
+    <li class="item" ng-click="onSelectAccountType('Savings')">Savings</li>
+    <li class="item" ng-click="onSelectAccountType('Other')">Other</li>
   </ul>
   </ion-modal-view>
 </script>

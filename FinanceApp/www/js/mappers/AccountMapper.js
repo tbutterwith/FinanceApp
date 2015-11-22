@@ -16,12 +16,14 @@ class AccountMapper {
   }
   
   static Map(row) {
-    var account = new Account();
-    
-    account.id = row.id;
-    account.name = row.name;
-    account.type = row.type;
-    
-    return account;
+    if(row !== undefined){
+      var account = new Account();
+      
+      account.id = row.id;
+      account.name = row.name;
+      account.type = row.type;
+      
+      return account;
+    }
   }
 }

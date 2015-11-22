@@ -67,12 +67,28 @@ angular.module('FinanceApp', ['ionic', 'ngCordova', 'app.controllers', 'app.serv
         }
       }
     })
-    .state('app.playlists', {
-      url: '/startpage',
+    
+    .state('app.new_account', {
+      url: '/account',
       views: {
         'menuContent': {
-          templateUrl: 'templates/NewAccount.html',
-          controller: 'NewAccountCtrl',
+          templateUrl: 'templates/Account.html',
+          controller: 'Account',
+          resolve: {
+            db: function(DBHelper){
+              return DBHelper;
+            }
+          }
+        }
+      }
+    })
+    
+    .state('app.account_edit', {
+      url: '/account/:id',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/Account.html',
+          controller: 'Account',
           resolve: {
             db: function(DBHelper){
               return DBHelper;
@@ -97,5 +113,5 @@ angular.module('FinanceApp', ['ionic', 'ngCordova', 'app.controllers', 'app.serv
     }
   });
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/startpage');
+  $urlRouterProvider.otherwise('/app/account');
 });

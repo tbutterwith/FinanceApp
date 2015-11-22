@@ -6,22 +6,19 @@ angular.module('app.controllers')
      $rootScope.accountsRendered = true;
   }); 
     
-  var loadAccounts = function () {
+  loadAccounts = function () {
     db.getAllAccounts().then(
       function (data) {
-        var menu = $('#menu-account-list .list');
-        $.each(data, function(i, account) {
-          console.log(account);
-          var url = '#/accounts/' + account.id;
-          var item = '<ion-item menu-close href="'+ url +'" accountID="' + account.id + '" class="item item-complex">'
-           + '<a class="item-content" ng-href="'+ url +'" href="'+ url +'">' +  account.name + '</a>'
-           + '</ion-item>';
-          menu.append(item);
-        });
+        $scope.accounts = data;
       },
       function (error) {
         console.log(error.message);
       });
+  };
+  
+  $scope.dropTables = function () {
+    db.dropTables();
+    $rootScope.accountsRendered = false;
   } 
 })
 

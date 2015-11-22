@@ -35,22 +35,16 @@ angular.module('app.services')
 .service('DBHelper', function ($cordovaSQLite, $q, DBA) {
 
   this.createTables = function() {
-      DBA.query('DROP TABLE IF EXISTS tbAccounts');
-      DBA.query('CREATE TABLE IF NOT EXISTS tbAccounts (' +
-        'id INTEGER PRIMARY KEY AUTOINCREMENT' + 
-        ',name NVARCHAR(255)' +
-        ',type VARCHAR(255)' +
-        ');');
+    DBA.query('CREATE TABLE IF NOT EXISTS tbAccounts (' +
+      'id INTEGER PRIMARY KEY AUTOINCREMENT' + 
+      ',name NVARCHAR(255)' +
+      ',type VARCHAR(255)' +
+      ');');
   };
   
   this.dropTables = function () {
-    
-  };
-  
-  this.insertAccount = function (account) {
-    var parameters = [account.name, account.type];
-    console.log("inserting account");
-    return DBA.query('INSERT INTO tbAccounts (`name`, `type`) VALUES (?, ?)', parameters);
+    DBA.query('DROP TABLE IF EXISTS tbAccounts');
+    this.createTables();
   };
   
  this.getAllAccounts = function () {
@@ -64,9 +58,23 @@ angular.module('app.services')
     var parameters = [id];
       return DBA.query('SELECT id, name, type FROM tbAccounts WHERE id = ?', parameters)
         .then(function (result) {
-          
           return AccountMapper.Map(DBA.getResults(result)[0]);
         });
   };
+  
+  this.insertAccount = function (account) {
+    var parameters = [account.name, account.type];
+    return DBA.query('INSERT INTO tbAccounts (`name`, `type`) VALUES (?, ?)', parameters);
+  };
+ 
+  this.updateAccount = function (account) {
+    var parameters = [account.name, account.type, account.id];
+    return DBA.query('UPDATE tbAccounts SET name=?, type=? WHERE id = ?', parameters);
+  };
+  
+  this.deleteAccount = function (account) {
+    var parameters = [account.id];
+    return DBA.query('DELETE FROM tbAccounts WHERE id = ?', parameters);
+  }
  
 })
