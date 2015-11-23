@@ -9101,10 +9101,21 @@ a.button {
 .icon-2 {
   font-size: 1.3em; }
 
-.transaction {
+.currency {
+  padding-right: 0.5em;
+  display: inline-block;
+  vertical-align: middle; }
+
+.currency-container input {
+  display: inline; }
+
+#transactions .transaction {
   padding-top: 0.5em !important;
   padding-bottom: 0.5em !important;
   border-bottom: 0.08em solid gainsboro; }
+
+#newTransaction .date-input {
+  text-align: right; }
 
 #account-settings .div-account-type {
   font-size: 0.9em;

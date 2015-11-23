@@ -29,6 +29,6 @@ angular.module('app.controllers')
   };
   
   $scope.onClickNewTransaction = function () {
-    $state.transitionTo('app.browse', null, {reload:true});
+    $state.transitionTo('app.new_transaction', {id: ""}, {reload:true});
   };
 });

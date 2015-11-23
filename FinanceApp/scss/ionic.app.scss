@@ -41,10 +41,30 @@ $date-colour: #A3A3A3;
   font-size: 1.3em;
 }
 
-.transaction {
-  padding-top: 0.5em !important;
-  padding-bottom: 0.5em !important;
-  border-bottom: 0.08em solid gainsboro;
+.currency {
+  padding-right: 0.5em;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.currency-container {
+  input {
+    display: inline;
+  }
+}
+
+#transactions{
+  .transaction {
+    padding-top: 0.5em !important;
+    padding-bottom: 0.5em !important;
+    border-bottom: 0.08em solid gainsboro;
+  }
+}
+
+#newTransaction{
+  .date-input {
+    text-align: right;
+  }
 }
 
 #account-settings {
@@ -54,4 +74,5 @@ $date-colour: #A3A3A3;
     padding-top: 0.4em;
     display: inline-block;
   }
+
 }

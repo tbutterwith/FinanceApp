@@ -38,7 +38,8 @@ angular.module('app.services')
     DBA.query('CREATE TABLE IF NOT EXISTS tbAccounts (' +
       'PK_AccountID INTEGER PRIMARY KEY AUTOINCREMENT,' + 
       'Name NVARCHAR(255),' +
-      'Type VARCHAR(255)' +
+      'Type VARCHAR(255),' +
+      'Balance MONEY' +
       ');');
     DBA.query('CREATE TABLE IF NOT EXISTS tbTransactions (' +
       'PK_TransactionID INTEGER PRIMARY KEY AUTOINCREMENT,' +
@@ -59,7 +60,7 @@ angular.module('app.services')
    * Accounts
    */
  this.getAllAccounts = function () {
-   return DBA.query('SELECT PK_AccountID AS ID, Name, Type FROM tbAccounts')
+   return DBA.query('SELECT PK_AccountID AS ID, Name, Type, Balance FROM tbAccounts')
       .then(function(result){
         return AccountMapper.MapRows(DBA.getResults(result));
       });
@@ -67,15 +68,15 @@ angular.module('app.services')
   
   this.getAccountById = function (id) {
     var parameters = [id];
-      return DBA.query('SELECT PK_AccountID AS ID, Name, Type FROM tbAccounts WHERE PK_AccountID = ?', parameters)
+      return DBA.query('SELECT PK_AccountID AS ID, Name, Type, Balance FROM tbAccounts WHERE PK_AccountID = ?', parameters)
         .then(function (result) {
           return AccountMapper.Map(DBA.getResults(result)[0]);
         });
   };
   
   this.insertAccount = function (account) {
-    var parameters = [account.name, account.type];
-    return DBA.query('INSERT INTO tbAccounts (`Name`, `Type`) VALUES (?, ?)', parameters);
+    var parameters = [account.name, account.type, account.balance];
+    return DBA.query('INSERT INTO tbAccounts (`Name`, `Type`, `Balance`) VALUES (?, ?, ?)', parameters);
   };
  
   this.updateAccount = function (account) {
@@ -87,6 +88,11 @@ angular.module('app.services')
     var parameters = [account.id];
     return DBA.query('DELETE FROM tbAccounts WHERE PK_AccountID = ?', parameters);
   };
+  
+  this.updateAccountBalance = function(accountId, balance) {
+    var parameters = [balance, accountId];
+    return DBA.query('UPDATE tbAccounts SET Balance = ? WHERE PK_AccountID = ?', parameters);
+  }
   
   /*
    * Transactions

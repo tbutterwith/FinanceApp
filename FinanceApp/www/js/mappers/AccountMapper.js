@@ -22,6 +22,7 @@ class AccountMapper {
       account.id = row.ID;
       account.name = row.Name;
       account.type = row.Type;
+      account.Balance = row.Balance;
       
       return account;
     }

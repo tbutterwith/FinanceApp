@@ -4,13 +4,15 @@ angular.module('app.controllers')
   $scope.account = new Account();
   
   $scope.$on('$ionicView.enter', function(e) {
-    if($stateParams.id !== undefined){
+    if($stateParams.id !== ""){
       loadAccountDetails($stateParams.id);
       $scope.showDelete = true;
+      $scope.showBalance = false;
     }
     else {
       $scope.account = new Account();
       $scope.account.type = 'Current';
+      $scope.showBalance = true;
     }
   });
   

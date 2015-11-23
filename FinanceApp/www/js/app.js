@@ -1,4 +1,4 @@
-//ionic emulate ios --target="iPad-Air-2" -l -c -s
+//ionic emulate ios --target="iPad-Air" -l -c -s
 
 var database = null;
 angular.module('FinanceApp', ['ionic', 'ngCordova', 'app.controllers', 'app.services'])
@@ -53,21 +53,6 @@ angular.module('FinanceApp', ['ionic', 'ngCordova', 'app.controllers', 'app.serv
       }
     })
     
-    .state('app.new_account', {
-      url: '/account',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/Account.html',
-          controller: 'Account',
-          resolve: {
-            db: function(DBHelper){
-              return DBHelper;
-            }
-          }
-        }
-      }
-    })
-    
     .state('app.account_edit', {
       url: '/account/:id',
       views: {
@@ -96,7 +81,23 @@ angular.module('FinanceApp', ['ionic', 'ngCordova', 'app.controllers', 'app.serv
         }
       }
     }
-  });
+  })
+  
+  .state('app.new_transaction', {
+    url: '/transaction/:id',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/Transaction.html',
+        controller: 'TransactionCtrl',
+        resolve: {
+          db: function(DBHelper){
+            return DBHelper;
+          }
+        }
+      }
+    }
+  })
+  ;
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/account');
+  $urlRouterProvider.otherwise('/app/account/');
 });
