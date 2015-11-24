@@ -1,4 +1,4 @@
-angular.module('app.services')
+angular.module('app.Services', [])
 
 .factory('DBA', function ($cordovaSQLite, $q, $ionicPlatform) {
   // Handle query's and potential errors

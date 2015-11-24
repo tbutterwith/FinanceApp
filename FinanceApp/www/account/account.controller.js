@@ -1,5 +1,5 @@
-angular.module('app.controllers')
-.controller('Account', function($rootScope, $scope, $state,$ionicHistory, $stateParams, $ionicModal, $ionicPopup, db) {
+angular.module('app.Account')
+.controller('AccountCtrl', function($rootScope, $scope, $state,$ionicHistory, $stateParams, $ionicModal, $ionicPopup, db) {
   $scope.db = db;
   $scope.account = new Account();
   

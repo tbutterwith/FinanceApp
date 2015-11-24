@@ -1,7 +1,15 @@
 //ionic emulate ios --target="iPad-Air" -l -c -s
 
 var database = null;
-angular.module('FinanceApp', ['ionic', 'ngCordova', 'app.controllers', 'app.services'])
+angular.module('FinanceApp', [
+  'ionic', 
+  'ngCordova', 
+  'app.Account', 
+  'app.App',
+  'app.Services',
+  'app.Transaction',
+  'app.Transactions'
+])
 
 .run(function($ionicPlatform, $rootScope, $cordovaSQLite, $cordovaSplashscreen, DBHelper) {
   $ionicPlatform.ready(function() {
@@ -57,8 +65,8 @@ angular.module('FinanceApp', ['ionic', 'ngCordova', 'app.controllers', 'app.serv
       url: '/account/:id',
       views: {
         'menuContent': {
-          templateUrl: 'templates/Account.html',
-          controller: 'Account',
+          templateUrl: 'account/account.html',
+          controller: 'AccountCtrl',
           resolve: {
             db: function(DBHelper){
               return DBHelper;
@@ -72,7 +80,7 @@ angular.module('FinanceApp', ['ionic', 'ngCordova', 'app.controllers', 'app.serv
     url: '/transactions/:id',
     views: {
       'menuContent': {
-        templateUrl: 'templates/transactions.html',
+        templateUrl: 'transactions/transactions.html',
         controller: 'TransactionsCtrl',
         resolve: {
           db: function(DBHelper){
@@ -87,7 +95,7 @@ angular.module('FinanceApp', ['ionic', 'ngCordova', 'app.controllers', 'app.serv
     url: '/transaction/:id',
     views: {
       'menuContent': {
-        templateUrl: 'templates/Transaction.html',
+        templateUrl: 'transaction/transaction.html',
         controller: 'TransactionCtrl',
         resolve: {
           db: function(DBHelper){

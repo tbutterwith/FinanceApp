@@ -1,4 +1,4 @@
-angular.module('app.controllers')
+angular.module('app.Transactions')
 .controller('TransactionsCtrl', function($scope, $state, $stateParams, $ionicModal, $compile, db) {
   var addButton = '<button class="button button-clear button-positive button-icon ion-ios-plus-empty" ng-click="onClickNewTransaction()"></button>';
   

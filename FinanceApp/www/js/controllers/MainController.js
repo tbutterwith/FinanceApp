@@ -1,4 +1,4 @@
-angular.module('app.controllers')
+angular.module('app.App', [])
 .controller('AppCtrl', function($rootScope, $scope, $location, $ionicModal, $q, db) {
   $scope.$on('$ionicView.enter', function(e) {
     if (!$rootScope.accountsRendered)

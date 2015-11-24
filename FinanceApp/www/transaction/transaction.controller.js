@@ -1,4 +1,4 @@
-angular.module('app.controllers')
+angular.module('app.Transaction')
 .controller('TransactionCtrl', function($scope, $state, $stateParams, $ionicModal, $filter, db) {
   
   $scope.$on('$ionicView.enter', function(e) {
