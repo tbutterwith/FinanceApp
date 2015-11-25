@@ -8,7 +8,8 @@ angular.module('FinanceApp', [
   'app.App',
   'app.Services',
   'app.Transaction',
-  'app.Transactions'
+  'app.Transactions',
+  'app.TransactionType'
 ])
 
 .run(function($ionicPlatform, $rootScope, $cordovaSQLite, $cordovaSplashscreen, DBHelper) {
@@ -97,6 +98,22 @@ angular.module('FinanceApp', [
       'menuContent': {
         templateUrl: 'transaction/transaction.html',
         controller: 'TransactionCtrl',
+        resolve: {
+          db: function(DBHelper){
+            return DBHelper;
+          }
+        }
+      }
+    },
+    params: {'id':null, 'accountId': null}
+  })
+  
+  .state('app.transactionType', {
+    url: '/transaction-type/:id',
+    views: {
+      'menuContent': {
+        templateUrl: 'transactionType/transactionType.html',
+        controller: 'TransactionTypeCtrl',
         resolve: {
           db: function(DBHelper){
             return DBHelper;

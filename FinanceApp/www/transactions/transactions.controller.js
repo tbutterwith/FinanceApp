@@ -6,7 +6,8 @@ angular.module('app.Transactions')
     var compiledButton = $compile(addButton)($scope);
     $('ion-header-bar .buttons-right').html(compiledButton);
     if($stateParams.id !== undefined){
-      loadTransactionsForAccount($stateParams.id)
+      loadTransactionsForAccount($stateParams.id);
+      $scope.accountId = $stateParams.id;
     }
   });
   
@@ -29,6 +30,6 @@ angular.module('app.Transactions')
   };
   
   $scope.onClickNewTransaction = function () {
-    $state.transitionTo('app.new_transaction', {id: ""}, {reload:true});
+    $state.go('app.new_transaction', {id: null, accountId: $scope.accountId });
   };
 });

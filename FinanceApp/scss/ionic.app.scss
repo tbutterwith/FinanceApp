@@ -29,7 +29,6 @@ $date-colour: #A3A3A3;
 }
 
 .trans-date{
-  
   color: $date-colour;
 }
 
@@ -41,9 +40,22 @@ $date-colour: #A3A3A3;
   font-size: 1.3em;
 }
 
+.icon-3 {
+  font-size: 2em;
+}
+
+.icon-4 {
+  font-size: 3em;
+}
+
 .currency {
   padding-right: 0.5em;
   display: inline-block;
+  vertical-align: middle;
+}
+
+.label {
+  padding: 0.5em;
   vertical-align: middle;
 }
 
@@ -52,6 +64,13 @@ $date-colour: #A3A3A3;
     display: inline;
   }
 }
+
+.icon-grid {
+  text-align: center;
+  padding-bottom: 1em;
+}
+
+
 
 #transactions{
   .transaction {
@@ -63,7 +82,13 @@ $date-colour: #A3A3A3;
 
 #newTransaction{
   .date-input {
-    text-align: right;
+    text-align: left;
+  }
+  
+  .trans-description, .trans-icon {
+    height: 100%;
+    display: inline-block;
+    vertical-align: middle;
   }
 }
 
@@ -74,5 +99,4 @@ $date-colour: #A3A3A3;
     padding-top: 0.4em;
     display: inline-block;
   }
-
 }

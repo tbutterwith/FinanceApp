@@ -1,10 +1,41 @@
 <ion-view view-title="" id="newTransaction">
   <ion-content>
     <div class="list">
-      <label class="item item-input">
+      <div class="item item-input item-stacked-label">
         <span class="input-label">Date</span>
-        <input type="date" class="date-input" ng-model='date' value={{date}}>
-      </label>
+        <input type="date" class="date-input" ng-model='trans.date' value={{date}}>
+      </div>
+      <div class="item item-input item-stacked-label">
+        <span class="input-label">Description</span>
+        <input type="text" ng-model="trans.description" placeholder="Description">
+      </div>
+      <div class="item item-input item-stacked-label">
+        <span class="input-label">Type</span><br />
+        <div class="trans-type-container" ng-click="onTypeClick()">
+          <span class="trans-icon"><i class="icon-2 {{trans.type.icon}}"></i></span>
+          <span class='label trans-description'>{{trans.type.description}}</span>
+        </div>
+      </div>
+      <div class="item item-input item-stacked-label">
+        <span class="input-label">Amount</span>
+        <div class="currency-container">
+          <span class="currency">£</span>
+          <input type="number" placeholder="1000" ng-model="trans.value">
+        </div>
+      </div>
+      <div class="padding">
+        <button class="button button-block button-positive" ng-click="onSubmitClick()">
+          Save
+        </button>
+      </div>
     </div>
+    <script id="modal-transaction-type" type="text/ng-template">
+      <ion-modal-view>
+      <div class="list">
+        <div class="item item-icon-left" ng-repeat="type in transactiontypes" ng-click="onSelectTransactionType({{type}})"><i class="icon {{type.icon}}"></i>{{type.description}}</div>
+        <div class="item item-icon-left" ng-click="onClickNewTransType()"><i class="icon ion-ios-plus-empty"></i>Add Type</div>
+      </div>
+      </ion-modal-view>
+    </script>
   </ion-content>
 </ion-view>

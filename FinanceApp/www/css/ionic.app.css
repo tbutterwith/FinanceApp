@@ -9101,13 +9101,27 @@ a.button {
 .icon-2 {
   font-size: 1.3em; }
 
+.icon-3 {
+  font-size: 2em; }
+
+.icon-4 {
+  font-size: 3em; }
+
 .currency {
   padding-right: 0.5em;
   display: inline-block;
   vertical-align: middle; }
 
+.label {
+  padding: 0.5em;
+  vertical-align: middle; }
+
 .currency-container input {
   display: inline; }
+
+.icon-grid {
+  text-align: center;
+  padding-bottom: 1em; }
 
 #transactions .transaction {
   padding-top: 0.5em !important;
@@ -9115,7 +9129,12 @@ a.button {
   border-bottom: 0.08em solid gainsboro; }
 
 #newTransaction .date-input {
-  text-align: right; }
+  text-align: left; }
+
+#newTransaction .trans-description, #newTransaction .trans-icon {
+  height: 100%;
+  display: inline-block;
+  vertical-align: middle; }
 
 #account-settings .div-account-type {
   font-size: 0.9em;

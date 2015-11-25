@@ -48,11 +48,17 @@ angular.module('app.Services', [])
       'FK_TypeID INTEGER,' +
       'FK_AccountID INTEGER' +
       ');');
+    DBA.query('CREATE TABLE IF NOT EXISTS tbTransactionTypes (' +
+      'PK_TransactionTypeID INTEGER PRIMARY KEY AUTOINCREMENT,' +
+      'Description NVARCHAR(255),' +
+      'Icon VARCHAR(100)' +
+      ');');
   };
   
   this.dropTables = function () {
     DBA.query('DROP TABLE IF EXISTS tbAccounts');
     DBA.query('DROP TABLE IF EXISTS tbTransactions');
+    DBA.query('DROP TABLE IF EXISTS tbTransactionTypes');
     this.createTables();
   };
   
@@ -62,7 +68,7 @@ angular.module('app.Services', [])
  this.getAllAccounts = function () {
    return DBA.query('SELECT PK_AccountID AS ID, Name, Type, Balance FROM tbAccounts')
       .then(function(result){
-        return AccountMapper.MapRows(DBA.getResults(result));
+        return Account.MapRows(DBA.getResults(result));
       });
   };
   
@@ -70,7 +76,7 @@ angular.module('app.Services', [])
     var parameters = [id];
       return DBA.query('SELECT PK_AccountID AS ID, Name, Type, Balance FROM tbAccounts WHERE PK_AccountID = ?', parameters)
         .then(function (result) {
-          return AccountMapper.Map(DBA.getResults(result)[0]);
+          return Account.Map(DBA.getResults(result)[0]);
         });
   };
   
@@ -98,18 +104,41 @@ angular.module('app.Services', [])
    * Transactions
    */
   this.insertTransaction = function (trans) {
-    var parameters = [trans.value, trans.AccountID];
-    return DBA.query('INSERT INTO tbTransactions (`Value`, `FK_AccountID`) VALUES (?,?)', parameters);
+    var parameters = [trans.value, trans.description, trans.accountID, trans.type.id];
+    return DBA.query('INSERT INTO tbTransactions (`Value`, `Description`, `FK_AccountID`, `FK_TypeID`) VALUES (?,?,?,?)', parameters);
   };
   
-  this.getTransactionsForAccount = function (accountID) {
-    var parameters = [accountID];
+  this.getTransactionsForAccount = function (accountId) {
+    var parameters = [accountId];
     return DBA.query('SELECT PK_TransactionID AS ID, Value, Description, FK_TypeID AS Type, FK_AccountID AS AccountID ' +
       'FROM tbTransactions WHERE FK_AccountID = ?', parameters)
       .then(function (result) {
-        return TransactionMapper.MapRows(DBA.getResults(result));
+        return Transaction.MapRows(DBA.getResults(result));
+      })
+  };
+  
+  /*
+   * Transaction Types
+   */
+   
+  this.insertTransactionType = function (transactionType) {
+    var parameters = [transactionType.description, transactionType.icon];
+    return DBA.query('INSERT INTO tbTransactionTypes (`Description`, `Icon`) VALUES (?,?)', parameters);
+  };
+  
+  this.getAllTransactionTypes = function () {
+    return DBA.query('SELECT PK_TransactionTypeID AS ID, Description, Icon FROM tbTransactionTypes')
+      .then(function (result) {
+        return TransactionType.MapRows(DBA.getResults(result));
       })
   }
- 
+  
+  this.getTransactionTypeById = function (transactionId) {
+    var parameters = [transactionId];
+    return DBA.query('SELECT PK_TransactionTypeID AS ID, Description, Icon FROM tbTransactionTypes WHERE PK_TransactionID = ?', parameters)
+      .then(function (result) {
+        return TransactionType.Map(DBA.getResults(result)[0]);
+      });
+  }
  
 })

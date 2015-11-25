@@ -1,0 +1,28 @@
+<ion-view view-title="" id="transactionType">
+  <ion-content>
+    <div class="list">
+      <div class="item item-input item-stacked-label">
+        <span class="input-label">Icon</span><br />
+        <div class="div-account-type" ng-click="onIconClick()"><span id="trans-icon"><i class="icon-3 {{type.icon}}"></i></span></div>
+      </div>
+      <div class="item item-input item-stacked-label">
+        <span class="input-label">Description</span><br />
+        <input type="text" placeholder="Description" ng-model="type.description">
+      </div>
+    </div>
+    <div class="padding">
+      <button class="button button-block button-positive" ng-click="onSubmitClick()">
+        Save Type
+      </button>
+    </div>
+    <script id="modal-type-icons" type="text/ng-template">
+      <ion-modal-view>
+      <ion-content>
+      <div class="row padding">
+        <div class="icon-grid col-xs-2" ng-repeat="icon in icons" ng-click="onIconGridClick(icon)"><i class="icon-4 {{icon}}"></i></div>
+      </div>
+      </ion-content>
+      </ion-modal-view>
+    </script>
+  </ion-content>
+</ion-view>
