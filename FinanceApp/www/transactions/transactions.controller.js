@@ -8,13 +8,16 @@ angular.module('app.Transactions')
     if($stateParams.id !== undefined){
       loadTransactionsForAccount($stateParams.id);
       $scope.accountId = $stateParams.id;
+    } else {
+      loadAllTransactions();
     }
   });
   
-  loadTransactionsForAccount = function (accountID){
-    db.getTransactionsForAccount(accountID)
+  loadTransactionsForAccount = function (accountId){
+    db.getTransactionsForAccount(accountId)
       .then(function (transactions) {
         $scope.transactions = transactions;
+        console.log(transactions);
       },
       function (error) {
         console.log(error.message);
@@ -25,9 +28,6 @@ angular.module('app.Transactions')
     
   };
   
-  $scope.createTransaction = function () {
-    
-  };
   
   $scope.onClickNewTransaction = function () {
     $state.go('app.new_transaction', {id: null, accountId: $scope.accountId });

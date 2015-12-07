@@ -10,7 +10,7 @@ var Transaction = class Transaction {
     
     for(var i = 0; i < rows.length; i++)
     {
-      accounts.push(this.Map(rows[i]));
+      transactions.push(this.Map(rows[i]));
     }
     
     return transactions;
@@ -21,10 +21,11 @@ var Transaction = class Transaction {
       var transaction = new Transaction();
       
       transaction.id = row.ID;
+      transaction.date = new Date(row.Date);
       transaction.value = row.Value;
       transaction.description = row.Description;
-      transaction.type = row.type;
-      transaction.accountID = row.accountID;
+      transaction.type = row.Type;
+      transaction.accountId = row.AccountID;
       
       return transaction;
     }

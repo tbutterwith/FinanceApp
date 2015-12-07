@@ -3,7 +3,7 @@
     <div class="list">
       <div class="item item-input item-stacked-label">
         <span class="input-label">Date</span>
-        <input type="date" class="date-input" ng-model='trans.date' value={{date}}>
+        <input type="date" class="date-input" ng-model='trans.date' value={{date | date : 'dd/MM/yy'}}>
       </div>
       <div class="item item-input item-stacked-label">
         <span class="input-label">Description</span>

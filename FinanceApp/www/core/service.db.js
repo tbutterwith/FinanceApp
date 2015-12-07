@@ -43,6 +43,7 @@ angular.module('app.Services', [])
       ');');
     DBA.query('CREATE TABLE IF NOT EXISTS tbTransactions (' +
       'PK_TransactionID INTEGER PRIMARY KEY AUTOINCREMENT,' +
+      'Date DATETIME,' +
       'Value MONEY,' +
       'Description NVARCHAR(255),' +
       'FK_TypeID INTEGER,' +
@@ -53,6 +54,7 @@ angular.module('app.Services', [])
       'Description NVARCHAR(255),' +
       'Icon VARCHAR(100)' +
       ');');
+    //DBA.query('INSERT INTO tbTransactionTypes (`Icon`, `Description`) VALUES (?,?)', ['ion-ios-paper', 'Newspapers']);
   };
   
   this.dropTables = function () {
@@ -104,18 +106,19 @@ angular.module('app.Services', [])
    * Transactions
    */
   this.insertTransaction = function (trans) {
-    var parameters = [trans.value, trans.description, trans.accountID, trans.type.id];
-    return DBA.query('INSERT INTO tbTransactions (`Value`, `Description`, `FK_AccountID`, `FK_TypeID`) VALUES (?,?,?,?)', parameters);
+    var parameters = [trans.date, trans.value, trans.description, trans.accountId, trans.type.id];
+    return DBA.query('INSERT INTO tbTransactions (`Date`, `Value`, `Description`, `FK_AccountID`, `FK_TypeID`) VALUES (?,?,?,?,?)', parameters);
   };
   
   this.getTransactionsForAccount = function (accountId) {
     var parameters = [accountId];
-    return DBA.query('SELECT PK_TransactionID AS ID, Value, Description, FK_TypeID AS Type, FK_AccountID AS AccountID ' +
+    return DBA.query('SELECT PK_TransactionID AS ID, Date, Value, Description, FK_TypeID AS Type, FK_AccountID AS AccountID ' +
       'FROM tbTransactions WHERE FK_AccountID = ?', parameters)
       .then(function (result) {
         return Transaction.MapRows(DBA.getResults(result));
       })
   };
+  
   
   /*
    * Transaction Types

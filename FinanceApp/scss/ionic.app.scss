@@ -29,6 +29,7 @@ $date-colour: #A3A3A3;
 }
 
 .trans-date{
+  padding-left: 1em;
   color: $date-colour;
 }
 
@@ -98,5 +99,21 @@ $date-colour: #A3A3A3;
     padding-bottom: 0.4em;
     padding-top: 0.4em;
     display: inline-block;
+  }
+}
+
+@include iphone6 {
+  .modal {
+    margin-top: 26px;
+  }
+}
+@include iphone5{
+  .modal {
+    padding-top: 26px;
+  }
+}
+@include iphone4 {
+  .modal {
+    padding-top: 26px;
   }
 }

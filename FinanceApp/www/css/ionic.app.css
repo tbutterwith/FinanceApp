@@ -9093,6 +9093,7 @@ a.button {
   border-radius: 8px !important; }
 
 .trans-date {
+  padding-left: 1em;
   color: #A3A3A3; }
 
 .padding-2 {
@@ -9141,3 +9142,15 @@ a.button {
   padding-bottom: 0.4em;
   padding-top: 0.4em;
   display: inline-block; }
+
+@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-device-pixel-ratio: 2) {
+  .modal {
+    margin-top: 26px; } }
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (device-aspect-ratio: 40 / 71) and (-webkit-device-pixel-ratio: 2) {
+  .modal {
+    padding-top: 26px; } }
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (device-aspect-ratio: 2 / 3) and (-webkit-device-pixel-ratio: 2) {
+  .modal {
+    padding-top: 26px; } }

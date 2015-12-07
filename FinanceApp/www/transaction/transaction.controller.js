@@ -1,8 +1,7 @@
 angular.module('app.Transaction')
-.controller('TransactionCtrl', function($scope, $state, $stateParams, $ionicModal, $filter, db) {
-  $scope.trans = {};
-
-  $scope.$on('$ionicView.enter', function(e) {
+.controller('TransactionCtrl', function($scope, $state, $stateParams, $ionicModal, $ionicHistory, $filter, db) {
+$scope.newTrans = true;
+  $scope.$on('$ionicView.beforeEnter', function(e) {
     
     db.getAllTransactionTypes()
       .then(function (result) {
@@ -10,18 +9,20 @@ angular.module('app.Transaction')
         $scope.trans.type = $scope.transactiontypes[0];
       });
       
-    if($stateParams.id == null){
+    if($stateParams.id == null && $scope.newTrans){
+      $scope.trans = {};
       $scope.trans.accountId = $stateParams.accountId;
       $('ion-header-bar .buttons-right').html('')
-      $scope.date = new Date();
-      
+      $scope.trans.date = new Date();
+      $scope.newTrans = false;
     }
   });
   
   $scope.onSubmitClick = function () {
+    console.log($scope.trans);
     db.insertTransaction($scope.trans)
       .then( function (result) {
-        
+          $ionicHistory.goBack();
       }, function (error){
         console.log(error.message);
       });
