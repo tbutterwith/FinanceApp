@@ -44,6 +44,7 @@ angular.module('app.Services', [])
     DBA.query('CREATE TABLE IF NOT EXISTS tbTransactions (' +
       'PK_TransactionID INTEGER PRIMARY KEY AUTOINCREMENT,' +
       'Date DATETIME,' +
+      'DateAdded DATETIME,' +
       'Value MONEY,' +
       'Description NVARCHAR(255),' +
       'FK_TypeID INTEGER,' +
@@ -100,20 +101,37 @@ angular.module('app.Services', [])
   this.updateAccountBalance = function(accountId, balance) {
     var parameters = [balance, accountId];
     return DBA.query('UPDATE tbAccounts SET Balance = ? WHERE PK_AccountID = ?', parameters);
-  }
+  };
+  
+  this.getAccountBalance = function (accountId) {
+    var parameters = [accountId];
+    return DBA.query('SELECT Balance FROM tbAccounts WHERE PK_AccountID = ?', parameters)
+      .then(function (result) {
+        return parseFloat(DBA.getResults(result)[0].Balance).toFixed(2);
+      });
+  };
   
   /*
    * Transactions
    */
   this.insertTransaction = function (trans) {
-    var parameters = [trans.date, trans.value, trans.description, trans.accountId, trans.type.id];
-    return DBA.query('INSERT INTO tbTransactions (`Date`, `Value`, `Description`, `FK_AccountID`, `FK_TypeID`) VALUES (?,?,?,?,?)', parameters);
+    var parameters = [new Date(), trans.date, trans.value, trans.description, trans.accountId, trans.type.id];
+    var self = this;
+    var accountBalance = 0;
+    return self.getAccountBalance(trans.accountId)
+      .then(function(balance) {
+        accountBalance = balance - trans.value;
+        return DBA.query('INSERT INTO tbTransactions (`DateAdded`, `Date`, `Value`, `Description`, `FK_AccountID`, `FK_TypeID`) VALUES (?,?,?,?,?,?)', parameters);
+      })
+      .then (function (result) {
+        return self.updateAccountBalance(trans.accountId, accountBalance);
+      });
   };
   
   this.getTransactionsForAccount = function (accountId) {
     var parameters = [accountId];
-    return DBA.query('SELECT PK_TransactionID AS ID, Date, Value, Description, FK_TypeID AS Type, FK_AccountID AS AccountID ' +
-      'FROM tbTransactions WHERE FK_AccountID = ?', parameters)
+    return DBA.query('SELECT PK_TransactionID AS ID, DateAdded, Date, Value, Description, FK_TypeID AS Type, FK_AccountID AS AccountID ' +
+      'FROM tbTransactions WHERE FK_AccountID = ? ORDER BY Date DESC, DateAdded DESC', parameters)
       .then(function (result) {
         return Transaction.MapRows(DBA.getResults(result));
       })

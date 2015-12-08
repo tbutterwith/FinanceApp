@@ -9124,10 +9124,16 @@ a.button {
   text-align: center;
   padding-bottom: 1em; }
 
+.bold {
+  font-weight: bold; }
+
 #transactions .transaction {
-  padding-top: 0.5em !important;
-  padding-bottom: 0.5em !important;
+  vertical-align: middle;
+  padding: 0.5em;
   border-bottom: 0.08em solid gainsboro; }
+
+#transactions .trans-icon {
+  text-align: center; }
 
 #newTransaction .date-input {
   text-align: left; }
@@ -9144,6 +9150,10 @@ a.button {
   display: inline-block; }
 
 @media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-device-pixel-ratio: 2) {
+  .trans-date {
+    padding-left: 0.6em !important; }
+  .trans-val {
+    text-align: right; }
   .modal {
     margin-top: 26px; } }
 

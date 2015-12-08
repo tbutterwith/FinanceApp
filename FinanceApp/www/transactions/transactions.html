@@ -1,11 +1,12 @@
 <ion-view view-title="" id="transactions">
   <ion-content>
     <div id="transaction-list">
-      <div class="transaction row" ng-repeat="trans in transactions">
+      <div class="fl-row transaction" ng-repeat="trans in transactions">
         <div class="col-xs-12 col-sm-1 col-md-1 trans-date" ng-bind="trans.date | date : 'dd/MM/yy'"></div>
-        <div class="col-xs-8 col-sm-7 col-md-9"><i class="icon-2 {{trans.icon}} padding-2"></i>{{trans.description}}</div>
-        <div class="col-xs-2 col-sm-2 col-md-1">{{trans.value}}</div>
-        <div class="col-xs-2 col-sm-2 col-md-1">{{trans.accountBalance}}</div>
+        <div class="col-xs-1 col-sm-1 col-md-1 trans-icon"><i class="icon-2 {{trans.icon.icon}} "></i></div>
+        <div class="col-xs-5 col-sm-6 col-md-8 trans-desc">{{trans.description}}</div>
+        <div class="col-xs-3 col-sm-2 col-md-1 trans-val">£ {{trans.value.toFixed(2)}}</div>
+        <div class="col-xs-3 col-sm-2 col-md-1 bold trans-val">£ {{trans.accountBalance.toFixed(2)}}</div>
       </div>
     </div>
   </ion-content>

@@ -71,13 +71,19 @@ $date-colour: #A3A3A3;
   padding-bottom: 1em;
 }
 
-
+.bold {
+  font-weight: bold;
+}
 
 #transactions{
   .transaction {
-    padding-top: 0.5em !important;
-    padding-bottom: 0.5em !important;
+    vertical-align: middle;
+    padding: 0.5em;
     border-bottom: 0.08em solid gainsboro;
+  }
+  
+  .trans-icon {
+    text-align: center;
   }
 }
 
@@ -103,9 +109,18 @@ $date-colour: #A3A3A3;
 }
 
 @include iphone6 {
+  .trans-date{
+    padding-left: 0.6em !important;
+  }
+  
+  .trans-val{
+    text-align: right;
+  }
+  
   .modal {
     margin-top: 26px;
   }
+  
 }
 @include iphone5{
   .modal {

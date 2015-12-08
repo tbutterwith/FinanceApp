@@ -1,4 +1,5 @@
 //ionic emulate ios --target="iPad-Air" -l -c -s
+//ionic emulate ios --target="iPhone-6" -l -c -s
 
 var database = null;
 angular.module('FinanceApp', [
