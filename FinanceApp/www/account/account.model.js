@@ -21,9 +21,10 @@ var Account = class Account {
       var account = new Account();
       
       account.id = row.ID;
+      account.dateAdded = new Date(row.DateAdded);
       account.name = row.Name;
       account.type = row.Type;
-      account.Balance = row.Balance;
+      account.balance = row.Balance;
       
       return account;
     }

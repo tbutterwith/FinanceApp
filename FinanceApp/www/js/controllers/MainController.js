@@ -20,12 +20,4 @@ angular.module('app.App', [])
     db.dropTables();
     $rootScope.accountsRendered = false;
   } 
-})
-
-
-.controller('AppCont', function($scope, db) {
-  
-})
-
-.controller('PlaylistCtrl', function($scope, $stateParams) {
-})
+});

@@ -9094,7 +9094,7 @@ a.button {
 
 .trans-date {
   padding-left: 1em;
-  color: #A3A3A3; }
+  color: #b2b2b2; }
 
 .padding-2 {
   padding: 1em; }
@@ -9134,6 +9134,9 @@ a.button {
 
 #transactions .trans-icon {
   text-align: center; }
+
+#transactions .trans-divider {
+  background-color: #F8F8F8; }
 
 #newTransaction .date-input {
   text-align: left; }

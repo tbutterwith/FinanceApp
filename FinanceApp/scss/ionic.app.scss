@@ -22,7 +22,8 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 @import "www/lib/ionic/scss/ionic";
 @import "www/lib/media-queries/media-queries";
 
-$date-colour: #A3A3A3;
+$date-colour: #b2b2b2;
+$divider-colour: #F8F8F8;
 
 .modal{
   border-radius: 8px !important;
@@ -84,6 +85,10 @@ $date-colour: #A3A3A3;
   
   .trans-icon {
     text-align: center;
+  }
+  
+  .trans-divider {
+    background-color: $divider-colour;
   }
 }
 

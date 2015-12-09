@@ -1,5 +1,4 @@
 angular.module('app.Services', [])
-
 .factory('DBA', function ($cordovaSQLite, $q, $ionicPlatform) {
   // Handle query's and potential errors
   this.query = function (query, parameters) {
@@ -11,7 +10,6 @@ angular.module('app.Services', [])
         .then(function (result) {
           q.resolve(result);
         }, function (error) {
-          console.warn('I found an error');
           console.warn(error.message);
           q.reject(error);
         });
@@ -37,6 +35,7 @@ angular.module('app.Services', [])
   this.createTables = function() {
     DBA.query('CREATE TABLE IF NOT EXISTS tbAccounts (' +
       'PK_AccountID INTEGER PRIMARY KEY AUTOINCREMENT,' + 
+      'DateAdded DATETIME,' +
       'Name NVARCHAR(255),' +
       'Type VARCHAR(255),' +
       'Balance MONEY' +
@@ -69,7 +68,7 @@ angular.module('app.Services', [])
    * Accounts
    */
  this.getAllAccounts = function () {
-   return DBA.query('SELECT PK_AccountID AS ID, Name, Type, Balance FROM tbAccounts')
+   return DBA.query('SELECT PK_AccountID AS ID, Name, Type, Balance FROM tbAccounts ORDER BY Type ASC, Name ASC')
       .then(function(result){
         return Account.MapRows(DBA.getResults(result));
       });
@@ -77,19 +76,18 @@ angular.module('app.Services', [])
   
   this.getAccountById = function (id) {
     var parameters = [id];
-      return DBA.query('SELECT PK_AccountID AS ID, Name, Type, Balance FROM tbAccounts WHERE PK_AccountID = ?', parameters)
+      return DBA.query('SELECT PK_AccountID AS ID, DateAdded, Name, Type, Balance FROM tbAccounts WHERE PK_AccountID = ?', parameters)
         .then(function (result) {
           return Account.Map(DBA.getResults(result)[0]);
         });
   };
   
   this.insertAccount = function (account) {
-    var parameters = [account.name, account.type, account.balance];
-    return DBA.query('INSERT INTO tbAccounts (`Name`, `Type`, `Balance`) VALUES (?, ?, ?)', parameters)
+    var parameters = [new Date(), account.name, account.type, account.balance];
+    return DBA.query('INSERT INTO tbAccounts (`DateAdded`, `Name`, `Type`, `Balance`) VALUES (?, ?, ?, ?)', parameters)
       .then(function () {
         return DBA.query('SELECT MAX(PK_AccountID) AS ID FROM tbAccounts')
           .then(function (result){
-            console.log(result);
             return parseInt(DBA.getResults(result)[0].ID);
           })
     });

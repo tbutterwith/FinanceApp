@@ -22,9 +22,9 @@ angular.module('app.Transactions')
         return db.getAllTransactionTypes();
       }).then(function (transTypes){
         $scope.transTypes = transTypes;
-        return db.getAccountBalance($scope.accountId);
-      }).then(function(balance) {
-        $scope.accountBalance = parseFloat(balance);
+        return db.getAccountById($scope.accountId);
+      }).then(function(account) {
+        $scope.account = account;
         updateTransactionForUI($scope.transactions);
       },
       function(error) {
@@ -37,15 +37,40 @@ angular.module('app.Transactions')
   };
   
   updateTransactionForUI = function (transactions) {
-    var balance = $scope.accountBalance;
+    $scope.transactionsUI = [];
+    
+    var accountOpenTrans = createAccountOpenTransaction();
+    transactions.push(accountOpenTrans);
+    
+    var balance = $scope.account.balance;
+    var prevDate = new Date();
     $.each(transactions, function(i, tran) {
-      console.log($scope.transTypes);
       tran.icon = $scope.transTypes[(tran.type - 1)];
+      
       tran.accountBalance = balance;
+      accountOpenTrans.value = balance;
       balance = balance + tran.value;
-      console.log(tran);
+      tran.isTrans = true;
+      
+      if (tran.date.getUTCMonth() != prevDate.getUTCMonth()){
+        var div = new Transaction();
+        div.description = tran.date.toLocaleString('en-us', { month: "long" }) + ' ' + tran.date.getFullYear();
+        div.isDivider = true;
+        prevDate = tran.date;
+        $scope.transactionsUI.push(div);
+      }
+      $scope.transactionsUI.push(tran);
     });
-  }
+    
+  };
+  
+  createAccountOpenTransaction = function() {
+    trans = new Transaction();
+    trans.date = $scope.account.dateAdded;
+    trans.value = null;
+    trans.description = "Account Open";
+    return trans;
+  };
   
   
   $scope.onClickNewTransaction = function () {

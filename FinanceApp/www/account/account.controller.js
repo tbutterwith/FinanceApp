@@ -22,7 +22,7 @@ angular.module('app.Account')
         $scope.account = account;
       },
       function (error) {
-        console.log(error.message);
+        console.error(error.message);
       });
   };
   
