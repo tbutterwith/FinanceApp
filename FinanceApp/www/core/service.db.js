@@ -85,7 +85,14 @@ angular.module('app.Services', [])
   
   this.insertAccount = function (account) {
     var parameters = [account.name, account.type, account.balance];
-    return DBA.query('INSERT INTO tbAccounts (`Name`, `Type`, `Balance`) VALUES (?, ?, ?)', parameters);
+    return DBA.query('INSERT INTO tbAccounts (`Name`, `Type`, `Balance`) VALUES (?, ?, ?)', parameters)
+      .then(function () {
+        return DBA.query('SELECT MAX(PK_AccountID) AS ID FROM tbAccounts')
+          .then(function (result){
+            console.log(result);
+            return parseInt(DBA.getResults(result)[0].ID);
+          })
+    });
   };
  
   this.updateAccount = function (account) {

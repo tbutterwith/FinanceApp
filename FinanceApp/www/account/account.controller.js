@@ -33,12 +33,12 @@ angular.module('app.Account')
     $scope.account.type = $('#account-type').text();
     
     db.insertAccount($scope.account)
-    .then( function () {
+    .then( function (id) {
       $rootScope.accountsRendered = false;
       $ionicHistory.nextViewOptions({
         disableBack: true
       });
-      $state.transitionTo('app.browse', null, {reload:true});
+      $state.transitionTo('app.transactions', {id: id}, {reload:true});
     });      
   };
   
@@ -50,7 +50,7 @@ angular.module('app.Account')
       $ionicHistory.nextViewOptions({
         disableBack: true
       });
-      $state.transitionTo('app.browse', null, {reload:true});
+      $state.transitionTo('app.transactions', {id: $scope.account.id}, {reload:true});
     });
   }
   

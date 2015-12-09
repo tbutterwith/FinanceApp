@@ -53,16 +53,6 @@ angular.module('FinanceApp', [
       }
     }
   })
-
-  .state('app.browse', {
-      url: '/browse',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/browse.html'
-        }
-      }
-    })
-    
     .state('app.account_edit', {
       url: '/account/:id',
       views: {
@@ -90,7 +80,8 @@ angular.module('FinanceApp', [
           }
         }
       }
-    }
+    },
+    params: { 'id':null }
   })
   
   .state('app.new_transaction', {
